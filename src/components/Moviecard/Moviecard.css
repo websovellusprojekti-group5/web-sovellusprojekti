@@ -1,0 +1,23 @@
+.movie-card {
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.movie-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.movie-card h2 {
+  font-size: 1rem;
+  margin: 10px 0 5px;
+}
+
+.movie-card p {
+  font-size: 0.9rem;
+  margin: 0;
+}
