@@ -32,14 +32,14 @@ router.get('/search', async (req, res, next) => {
   try {
     const { query } = req.query
 
-    if (!query || !query.trim()) {
+    if (typeof query !== 'string' || !query.trim()) {
       return res.status(400).json({
         error: 'Search query is required'
       })
     }
 
     const data = await fetchTmdb('search/movie', {
-      query
+      query: query.trim()
     })
 
     res.json(data)
