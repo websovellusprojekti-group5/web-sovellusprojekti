@@ -1,7 +1,18 @@
 import React from "react";
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import './Navbar.css'
+
 export default function Navbar() {
+  const navigate = useNavigate()
+
+  function handleSearch(event) {
+    event.preventDefault()
+    const query = event.currentTarget.elements.query.value.trim()
+    if (!query) return
+
+    navigate(`/search?query=${encodeURIComponent(query)}`)
+  }
+
   return (
     <nav className="navbar md:navbar-expand bg-1">
       <div className="container-fluid">
@@ -19,11 +30,20 @@ export default function Navbar() {
                 <Link className="nav-link" to="/">Etusivu</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/movies">Elokuvat</Link>
+                <button
+                  className="nav-link" type="button" data-bs-toggle="menu" aria-expanded="false" id="moviesMenu">
+                  Elokuvat ▾
+                </button>
+                <div className="menu" aria-labelledby="moviesMenu">
+                  <Link className="menu-item" to="/movies">Kaikki elokuvat</Link>
+                  <Link className="menu-item" to="/movies?sort=newest">Uusimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
+                </div>
               </li>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
+              <form className="d-flex" role="search" onSubmit={handleSearch}>
+                <input className="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search" required />
+                <button className="btn btn-outline-success" type="submit">Search</button>
                 <li className="nav-item">
                   <Link className="nav-link" to="/movies">Kirjaudu</Link>
                 </li>

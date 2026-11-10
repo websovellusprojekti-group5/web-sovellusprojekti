@@ -4,6 +4,7 @@ import './App.css'
 import { Routes, Route } from 'react-router'
 import Home from './pages/Home'
 import Movies from './pages/Movies'
+import Search from './pages/Search'
 import Navbar from './components/Navbar/Navbar'
 import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
@@ -28,6 +29,10 @@ function App() {
           <Route
           path="/movies/:id"
           element={<MovieDetails/>}
+          />
+          <Route
+          path="/search"
+          element={<Search/>}
           />
         </Routes>
       </main>
