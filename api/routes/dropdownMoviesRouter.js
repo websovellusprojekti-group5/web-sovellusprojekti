@@ -2,6 +2,30 @@ import express from 'express'
 
 const router = express.Router()
 
+router.get('/all', async (req, res, next) => {
+  try {
+    if (!process.env.TMDB_API_KEY) {
+      return res.status(500).json({ error: 'TMDB API key puuttuu' })
+    }
+
+    const url = new URL('https://api.themoviedb.org/3/discover/movie')
+    url.searchParams.set('api_key', process.env.TMDB_API_KEY)
+    url.searchParams.set('language', 'fi-FI')
+    url.searchParams.set('sort_by', 'title.asc')
+
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: 'Elokuvien haku epäonnistui' })
+    }
+
+    res.json(await response.json())
+  } catch (error) {
+    next(error)
+  }
+})
+
+
 router.get('/newest', async (req, res, next) => {
   try {
     if (!process.env.TMDB_API_KEY) {
