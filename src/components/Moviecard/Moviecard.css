@@ -21,3 +21,19 @@
   font-size: 0.9rem;
   margin: 0;
 }
+
+.movie-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.movie-card-link:hover h2 {
+  text-decoration: underline;
+}
+
+.movie-card-link:focus {
+  outline: 3px solid currentColor;
+  outline-offset: 5px;
+}

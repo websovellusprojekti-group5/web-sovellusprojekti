@@ -1,6 +1,9 @@
 import express from 'express'
+import movieRouter from './movieRouter.js'
 
 const router = express.Router()
+
+router.use(movieRouter)
 
 // Search movies using TMDB
 router.get('/search', async (req, res, next) => {
@@ -65,4 +68,5 @@ router.get('/trending/', async (req, res, next) => {
     next(error)
   }
 })
+
 export default router

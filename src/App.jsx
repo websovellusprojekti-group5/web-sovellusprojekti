@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Movies from './pages/Movies'
 import Navbar from './components/Navbar/Navbar'
 import Moviecard from './components/Moviecard/Moviecard'
+import MovieDetails from './pages/MovieDetails'
 
 function App() {
   
@@ -23,6 +24,10 @@ function App() {
           path="/movies"
           exact
           element={<Movies/>}
+          />
+          <Route
+          path="/movies/:id"
+          element={<MovieDetails/>}
           />
         </Routes>
       </main>
