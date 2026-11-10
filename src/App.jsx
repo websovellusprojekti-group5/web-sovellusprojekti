@@ -4,6 +4,7 @@ import './App.css'
 import { Routes, Route } from 'react-router'
 import Home from './pages/Home'
 import Movies from './pages/Movies'
+import Search from './pages/Search'
 import Navbar from './components/Navbar/Navbar'
 import Moviecard from './components/Moviecard/Moviecard'
 
@@ -23,6 +24,10 @@ function App() {
           path="/movies"
           exact
           element={<Movies/>}
+          />
+          <Route
+          path="/search"
+          element={<Search/>}
           />
         </Routes>
       </main>

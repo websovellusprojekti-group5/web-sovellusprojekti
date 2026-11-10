@@ -1,4 +1,5 @@
 import express from 'express'
+import tmdbSearchRouter from './tmdbSearchRouter.js'
 
 const router = express.Router()
 
@@ -50,6 +51,7 @@ router.get('/search', async (req, res, next) => {
     next(error)
   }
 })
+router.use('/search', tmdbSearchRouter)
 
 router.get('/trending/', async (req, res, next) => {
   try {
