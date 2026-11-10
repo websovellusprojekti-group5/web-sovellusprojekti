@@ -10,6 +10,12 @@ export default function Movies() {
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const titles = {
+  all: 'Kaikki elokuvat',
+  newest: 'Uusimmat elokuvat',
+  popular: 'Suosituimmat elokuvat',
+  top_rated: 'Parhaiten arvostellut elokuvat',
+}
 
   useEffect(() => {
     const controller = new AbortController()
@@ -37,11 +43,14 @@ return () => controller.abort()
       }, [sort])
 
 return (<section aria-label="Elokuvat">
+  <h1>{titles[sort] || 'Elokuvat'}</h1>
   {loading && <p role="status">Ladataan elokuvia…</p>}
   {error && <p role="alert">{error}</p>}
   {!loading && !error && movies.length === 0 && <p>Elokuvia ei löytynyt.</p>}
+  <div className="movie-grid">
   {movies.map((movie) => (
     <Moviecard key={movie.id} movie={movie} />
   ))}
+</div>
 </section>) 
 }
