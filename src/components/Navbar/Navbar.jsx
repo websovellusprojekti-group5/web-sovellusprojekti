@@ -19,7 +19,16 @@ export default function Navbar() {
                 <Link className="nav-link" to="/">Etusivu</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/movies">Elokuvat</Link>
+                <button
+                  className="nav-link" type="button" data-bs-toggle="menu" aria-expanded="false" id="moviesMenu">
+                  Elokuvat ▾
+                </button>
+                <div className="menu" aria-labelledby="moviesMenu">
+                  <Link className="menu-item" to="/movies">Kaikki elokuvat</Link>
+                  <Link className="menu-item" to="/movies?sort=newest">Uusimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
+                </div>
               </li>
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
