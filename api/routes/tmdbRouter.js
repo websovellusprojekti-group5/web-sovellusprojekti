@@ -28,29 +28,6 @@ async function fetchTmdb(path, params = {}) {
   return response.json()
 }
 
-// Search movies using TMDB
-router.get('/search', async (req, res, next) => {
-  try {
-    const { query } = req.query
-
-    if (typeof query !== 'string' || !query.trim()) {
-      return res.status(400).json({
-        error: 'Search query is required'
-      })
-    }
-
-    const data = await fetchTmdb('search/movie', {
-      query: query.trim()
-    })
-
-    res.json(data)
-  } catch (error) {
-    if (error.status) {
-      return res.status(error.status).json({ error: error.message })
-    }
-    next(error)
-  }
-})
 router.use('/search', tmdbSearchRouter)
 
 router.get('/trending/', async (req, res, next) => {
