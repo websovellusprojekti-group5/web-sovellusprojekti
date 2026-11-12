@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import Movies from './pages/Movies'
 import Search from './pages/Search'
 import Navbar from './components/Navbar/Navbar'
+import Register from './pages/Register'
+import Login from './pages/Login'
 import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
 
@@ -27,6 +29,14 @@ function App() {
           element={<Movies/>}
           />
           <Route
+          path="/register"
+          exact
+          element={<Register/>}
+          />
+          <Route
+          path="/login"
+          exact
+          element={<Login/>}
           path="/movies/:id"
           element={<MovieDetails/>}
           />
