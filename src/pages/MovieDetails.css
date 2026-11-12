@@ -1,0 +1,33 @@
+.movie-details {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.movie-details-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.movie-details-content img {
+  width: min(100%, 342px);
+  height: auto;
+  border-radius: 8px;
+}
+
+.movie-details-content dt {
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+.movie-details-content dd {
+  margin: 4px 0 0;
+}
+
+@media (max-width: 640px) {
+  .movie-details-content {
+    flex-direction: column;
+  }
+}
