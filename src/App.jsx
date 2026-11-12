@@ -27,6 +27,10 @@ function App() {
           path="/movies"
           exact
           element={<Movies/>}
+          />         
+          <Route
+          path="/search"
+          element={<Search/>}
           />
           <Route
           path="/register"
@@ -37,13 +41,8 @@ function App() {
           path="/login"
           exact
           element={<Login/>}
-          path="/movies/:id"
-          element={<MovieDetails/>}
           />
-          <Route
-          path="/search"
-          element={<Search/>}
-          />
+
         </Routes>
       </main>
     </>

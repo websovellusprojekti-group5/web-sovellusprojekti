@@ -19,7 +19,6 @@ export default function Navbar() {
       setLogoutError('Uloskirjautuminen epäonnistui. Yritä uudelleen.')
     }
   }
-  const navigate = useNavigate()
 
   function handleSearch(event) {
     event.preventDefault()
@@ -46,11 +45,17 @@ export default function Navbar() {
                 <Link className="nav-link" to="/" draggable={false}>Etusivu</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/movies" draggable={false}>Elokuvat</Link>
-              </li>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button
+                  className="nav-link" type="button" data-bs-toggle="menu" aria-expanded="false" id="moviesMenu">
+                  Elokuvat ▾
+                </button>
+                <div className="menu" aria-labelledby="moviesMenu">
+                  <Link className="menu-item" to="/movies">Kaikki elokuvat</Link>
+                  <Link className="menu-item" to="/movies?sort=newest">Uusimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
+                </div>
+                </li>
                 {!loading && (
                   user ? (
                     <>
@@ -82,27 +87,13 @@ export default function Navbar() {
                     </>
                   )
                 )}
-                <button
-                  className="nav-link" type="button" data-bs-toggle="menu" aria-expanded="false" id="moviesMenu">
-                  Elokuvat ▾
-                </button>
-                <div className="menu" aria-labelledby="moviesMenu">
-                  <Link className="menu-item" to="/movies">Kaikki elokuvat</Link>
-                  <Link className="menu-item" to="/movies?sort=newest">Uusimmat</Link>
-                  <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
-                  <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
-                </div>
-              </li>
+          
+            <li className="nav-item">
               <form className="d-flex" role="search" onSubmit={handleSearch}>
                 <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
                 <button className="btn btn-outline-success" type="submit">Hae</button>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/movies">Kirjaudu</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/movies">Rekisteröidy</Link>
-                </li>
               </form>
+            </li>
             </ul>
           </div>
         </dialog>
