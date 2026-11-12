@@ -1,7 +1,23 @@
-import React from "react";
+import { useState } from "react";
+import { useAuth } from '../../auth/AuthProvider'
+import { useNavigate } from 'react-router'
 import { Link } from 'react-router'
 import './Navbar.css'
 export default function Navbar() {
+  const { user, logout,loading } = useAuth()
+  const navigate = useNavigate()
+  const [logoutError, setLogoutError] = useState('')
+
+  async function handleLogout() {
+    setLogoutError('')
+
+    try {
+      await logout()
+      navigate('/', { replace: true })
+    } catch {
+      setLogoutError('Uloskirjautuminen epäonnistui. Yritä uudelleen.')
+    }
+  }
   return (
     <nav className="navbar md:navbar-expand bg-1">
       <div className="container-fluid">
@@ -16,20 +32,45 @@ export default function Navbar() {
           <div className="drawer-body mb-2 md:mb-0">
             <ul className="nav navbar-nav me-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/">Etusivu</Link>
+                <Link className="nav-link" to="/" draggable={false}>Etusivu</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/movies">Elokuvat</Link>
+                <Link className="nav-link" to="/movies" draggable={false}>Elokuvat</Link>
               </li>
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit">Search</button>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/movies">Kirjaudu</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/movies">Rekisteröidy</Link>
-                </li>
+                {!loading && (
+                  user ? (
+                    <>
+                      <li className="nav-item">
+                        <span className="nav-link">
+                         {user.username}
+                        </span>
+                      </li>
+
+                      <li className="nav-item">
+                        <button type="button" onClick={handleLogout}>
+                          Kirjaudu ulos
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/login" draggable={false}>
+                          Kirjaudu
+                        </Link>
+                      </li>
+
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/register" draggable={false}>
+                          Rekisteröidy
+                        </Link>
+                      </li>
+                    </>
+                  )
+                )}
               </form>
             </ul>
           </div>
