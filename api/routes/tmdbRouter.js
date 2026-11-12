@@ -46,10 +46,8 @@ router.get('/trending/', async (req, res, next) => {
         error: 'TMDB API key is not configured'
       })
     }
-    const url = new URL(
-      "https://api.themoviedb.org/3/trending/movie/week"
-    )
 
+    const url = new URL('https://api.themoviedb.org/3/trending/movie/week')
     url.searchParams.set('api_key', process.env.TMDB_API_KEY)
     url.searchParams.set('language', 'fi-FI')
 
@@ -65,6 +63,9 @@ router.get('/trending/', async (req, res, next) => {
 
     res.json(data)
   } catch (error) {
+    if (error.status) {
+      return res.status(error.status).json({ error: error.message })
+    }
     next(error)
   }
 })
