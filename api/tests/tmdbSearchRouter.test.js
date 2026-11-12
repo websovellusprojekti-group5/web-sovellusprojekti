@@ -48,6 +48,10 @@ describe('GET /api/tmdb/search', () => {
             ok: true,
             json: async () => ({results: []})
         })
+        .mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({results: []})
+        })
 
         const response = await request(app)
         .get('/api/tmdb/search')
@@ -56,5 +60,37 @@ describe('GET /api/tmdb/search', () => {
         expect(response.status).toBe(200)
         expect(response.body.results).toEqual(movies)
         expect(response.body.total_results).toBe(1)
+    })
+
+    it("includes an actor's movie credits without duplicating movie results", async () => {
+        const titleMatch = {id: 603, title: 'The Matrix'}
+        const actorCredit = {id: 603, title: 'The Matrix'}
+        const secondCredit = {id: 550, title: 'Fight Club'}
+
+        fetchMock.mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({results: [titleMatch]})
+        })
+        .mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({results: []})
+        })
+        .mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({results: [{id: 6384, name: 'Keanu Reeves'}]})
+        })
+        .mockResolvedValueOnce({
+            ok: true,
+            json: async () => ({cast: [actorCredit, secondCredit]})
+        })
+
+        const response = await request(app)
+        .get('/api/tmdb/search')
+        .query({query: 'Keanu Reeves'})
+
+        expect(response.status).toBe(200)
+        expect(response.body.results).toEqual([titleMatch, secondCredit])
+        expect(response.body.total_results).toBe(2)
+        expect(fetchMock.mock.calls[3][0].pathname).toBe('/3/person/6384/movie_credits')
     })
 })

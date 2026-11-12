@@ -51,7 +51,7 @@ export default function Search() {
     <section aria-label="Elokuvahaku">
       <h1>Elokuvahaku</h1>
       {query && <h2>Hakutulokset: {query}</h2>}
-      {!query && <p>Kirjoita elokuvan nimi hakukenttään.</p>}
+      {!query && <p>Hae elokuvia.</p>}
       {loading && <p role="status">Ladataan elokuvia…</p>}
       {error && <p role="alert">{error}</p>}
       {query && !loading && !error && movies.length === 0 && <p>Elokuvia ei löytynyt.</p>}

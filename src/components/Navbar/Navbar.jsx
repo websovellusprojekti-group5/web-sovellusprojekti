@@ -42,8 +42,8 @@ export default function Navbar() {
                 </div>
               </li>
               <form className="d-flex" role="search" onSubmit={handleSearch}>
-                <input className="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search" required />
-                <button className="btn btn-outline-success" type="submit">Search</button>
+                <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
+                <button className="btn btn-outline-success" type="submit">Hae</button>
                 <li className="nav-item">
                   <Link className="nav-link" to="/movies">Kirjaudu</Link>
                 </li>
