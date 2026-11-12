@@ -3,6 +3,7 @@ import { useAuth } from '../../auth/AuthProvider'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router'
 import './Navbar.css'
+
 export default function Navbar() {
   const { user, logout,loading } = useAuth()
   const navigate = useNavigate()
@@ -18,6 +19,16 @@ export default function Navbar() {
       setLogoutError('Uloskirjautuminen epäonnistui. Yritä uudelleen.')
     }
   }
+  const navigate = useNavigate()
+
+  function handleSearch(event) {
+    event.preventDefault()
+    const query = event.currentTarget.elements.query.value.trim()
+    if (!query) return
+
+    navigate(`/search?query=${encodeURIComponent(query)}`)
+  }
+
   return (
     <nav className="navbar md:navbar-expand bg-1">
       <div className="container-fluid">
@@ -71,6 +82,26 @@ export default function Navbar() {
                     </>
                   )
                 )}
+                <button
+                  className="nav-link" type="button" data-bs-toggle="menu" aria-expanded="false" id="moviesMenu">
+                  Elokuvat ▾
+                </button>
+                <div className="menu" aria-labelledby="moviesMenu">
+                  <Link className="menu-item" to="/movies">Kaikki elokuvat</Link>
+                  <Link className="menu-item" to="/movies?sort=newest">Uusimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
+                  <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
+                </div>
+              </li>
+              <form className="d-flex" role="search" onSubmit={handleSearch}>
+                <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
+                <button className="btn btn-outline-success" type="submit">Hae</button>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/movies">Kirjaudu</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/movies">Rekisteröidy</Link>
+                </li>
               </form>
             </ul>
           </div>

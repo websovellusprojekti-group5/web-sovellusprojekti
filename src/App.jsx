@@ -4,10 +4,12 @@ import './App.css'
 import { Routes, Route } from 'react-router'
 import Home from './pages/Home'
 import Movies from './pages/Movies'
+import Search from './pages/Search'
 import Navbar from './components/Navbar/Navbar'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Moviecard from './components/Moviecard/Moviecard'
+import MovieDetails from './pages/MovieDetails'
 
 function App() {
   
@@ -35,6 +37,12 @@ function App() {
           path="/login"
           exact
           element={<Login/>}
+          path="/movies/:id"
+          element={<MovieDetails/>}
+          />
+          <Route
+          path="/search"
+          element={<Search/>}
           />
         </Routes>
       </main>
