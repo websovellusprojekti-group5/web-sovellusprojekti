@@ -11,7 +11,7 @@ router.get('/all', async (req, res, next) => {
     const url = new URL('https://api.themoviedb.org/3/discover/movie')
     url.searchParams.set('api_key', process.env.TMDB_API_KEY)
     url.searchParams.set('language', 'fi-FI')
-    url.searchParams.set('sort_by', 'title.asc')
+    url.searchParams.set('sort_by', 'vote_count.desc')
 
     const response = await fetch(url)
 
