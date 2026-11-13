@@ -12,37 +12,40 @@ import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
 
 function App() {
-  
-  return(
+
+  return (
     <>
-    <Navbar/>  
+      <Navbar />
       <main>
         <Routes>
           <Route
-          path="/"
-          exact
-          element={<Home/>}
+            path="/"
+            exact
+            element={<Home />}
           />
           <Route
-          path="/movies"
-          exact
-          element={<Movies/>}
-          />         
-          <Route
-          path="/search"
-          element={<Search/>}
+            path="/movies"
+            exact
+            element={<Movies />}
           />
           <Route
-          path="/register"
-          exact
-          element={<Register/>}
+            path="/movies/:id"
+            element={<MovieDetails />}
           />
           <Route
-          path="/login"
-          exact
-          element={<Login/>}
+            path="/search"
+            element={<Search />}
           />
-
+          <Route
+            path="/register"
+            exact
+            element={<Register />}
+          />
+          <Route
+            path="/login"
+            exact
+            element={<Login />}
+          />
         </Routes>
       </main>
     </>
