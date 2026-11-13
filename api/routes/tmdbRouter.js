@@ -1,5 +1,7 @@
 import express from 'express'
 import tmdbSearchRouter from './tmdbSearchRouter.js'
+import dropdownMoviesRouter from './dropdownMoviesRouter.js'
+import movieRouter from './movieRouter.js'
 
 const router = express.Router()
 
@@ -29,7 +31,8 @@ async function fetchTmdb(path, params = {}) {
 }
 
 router.use('/search', tmdbSearchRouter)
-
+router.use('/dropdown', dropdownMoviesRouter)
+router.use('/', movieRouter)
 router.get('/trending/', async (req, res, next) => {
   try {
     const data = await fetchTmdb('trending/movie/week', {

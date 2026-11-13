@@ -1,9 +1,24 @@
-import React from "react";
-import { Link, useNavigate } from 'react-router'
+import { useState } from "react";
+import { useAuth } from '../../auth/AuthProvider'
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router'
 import './Navbar.css'
 
 export default function Navbar() {
+  const { user, logout,loading } = useAuth()
   const navigate = useNavigate()
+  const [logoutError, setLogoutError] = useState('')
+
+  async function handleLogout() {
+    setLogoutError('')
+
+    try {
+      await logout()
+      navigate('/', { replace: true })
+    } catch {
+      setLogoutError('Uloskirjautuminen epäonnistui. Yritä uudelleen.')
+    }
+  }
 
   function handleSearch(event) {
     event.preventDefault()
@@ -27,7 +42,7 @@ export default function Navbar() {
           <div className="drawer-body mb-2 md:mb-0">
             <ul className="nav navbar-nav me-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/">Etusivu</Link>
+                <Link className="nav-link" to="/" draggable={false}>Etusivu</Link>
               </li>
               <li className="nav-item">
                 <button
@@ -40,17 +55,45 @@ export default function Navbar() {
                   <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
                   <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
                 </div>
-              </li>
+                </li>
+                {!loading && (
+                  user ? (
+                    <>
+                      <li className="nav-item">
+                        <span className="nav-link">
+                         {user.username}
+                        </span>
+                      </li>
+
+                      <li className="nav-item">
+                        <button type="button" onClick={handleLogout}>
+                          Kirjaudu ulos
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/login" draggable={false}>
+                          Kirjaudu
+                        </Link>
+                      </li>
+
+                      <li className="nav-item">
+                        <Link className="nav-link" to="/register" draggable={false}>
+                          Rekisteröidy
+                        </Link>
+                      </li>
+                    </>
+                  )
+                )}
+          
+            <li className="nav-item">
               <form className="d-flex" role="search" onSubmit={handleSearch}>
-                <input className="form-control me-2" name="query" type="search" placeholder="Search" aria-label="Search" required />
-                <button className="btn btn-outline-success" type="submit">Search</button>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/movies">Kirjaudu</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/movies">Rekisteröidy</Link>
-                </li>
+                <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
+                <button className="btn btn-outline-success" type="submit">Hae</button>
               </form>
+            </li>
             </ul>
           </div>
         </dialog>

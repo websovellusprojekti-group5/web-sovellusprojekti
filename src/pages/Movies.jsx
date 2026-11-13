@@ -22,7 +22,7 @@ export default function Movies() {
 
     async function fetchMovies() {
       try {
-        const { data } = await axios.get(`/api/dropdown-movies/${sort}`, {
+        const { data } = await axios.get(`/api/tmdb/dropdown/${sort}`, {
           signal: controller.signal,
         })
   if (!Array.isArray(data.results)) {

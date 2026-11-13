@@ -26,24 +26,55 @@ router.get('/', async (req, res, next) => {
     keywordUrl.searchParams.set('api_key', process.env.TMDB_API_KEY)
     keywordUrl.searchParams.set('query', query.trim())
 
-    const [movieResponse, keywordResponse] = await Promise.all([
+    const personUrl = new URL('https://api.themoviedb.org/3/search/person')
+    personUrl.searchParams.set('api_key', process.env.TMDB_API_KEY)
+    personUrl.searchParams.set('query', query.trim())
+
+    const [movieResponse, keywordResponse, personResponse] = await Promise.all([
       fetch(movieUrl),
-      fetch(keywordUrl)
+      fetch(keywordUrl),
+      fetch(personUrl)
     ])
 
-    if (!movieResponse.ok || !keywordResponse.ok) {
-      const failedResponse = !movieResponse.ok ? movieResponse : keywordResponse
+    if (!movieResponse.ok || !keywordResponse.ok || !personResponse.ok) {
+      const failedResponse = [movieResponse, keywordResponse, personResponse]
+        .find((response) => !response.ok)
       return res.status(failedResponse.status).json({
         error: 'TMDB API request failed'
       })
     }
 
-    const [movieData, keywordData] = await Promise.all([
+    const [movieData, keywordData, personData] = await Promise.all([
       movieResponse.json(),
-      keywordResponse.json()
+      keywordResponse.json(),
+      personResponse.json()
     ])
-    if (!Array.isArray(movieData.results) || !Array.isArray(keywordData.results)) {
+    if (
+      !Array.isArray(movieData.results) ||
+      !Array.isArray(keywordData.results) ||
+      !Array.isArray(personData.results)
+    ) {
       throw new Error('Invalid TMDB search response')
+    }
+
+    const actor = personData.results.find(({ id }) => Number.isInteger(id))
+    let actorMovies = []
+    if (actor) {
+      const creditsUrl = new URL(`https://api.themoviedb.org/3/person/${actor.id}/movie_credits`)
+      creditsUrl.searchParams.set('api_key', process.env.TMDB_API_KEY)
+
+      const creditsResponse = await fetch(creditsUrl)
+      if (!creditsResponse.ok) {
+        return res.status(creditsResponse.status).json({
+          error: 'TMDB API request failed'
+        })
+      }
+
+      const creditsData = await creditsResponse.json()
+      if (!Array.isArray(creditsData.cast)) {
+        throw new Error('Invalid TMDB movie credits response')
+      }
+      actorMovies = creditsData.cast
     }
 
     const keywordIds = keywordData.results
@@ -72,7 +103,7 @@ router.get('/', async (req, res, next) => {
     }
 
     const resultsById = new Map()
-    for (const movie of [...movieData.results, ...keywordMovies]) {
+    for (const movie of [...movieData.results, ...keywordMovies, ...actorMovies]) {
       if (movie?.id != null && !resultsById.has(movie.id)) {
         resultsById.set(movie.id, movie)
       }
