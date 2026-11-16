@@ -106,6 +106,22 @@ export default function MovieDetails() {
                                 ? `${movie.vote_average.toFixed(1)} / 10 (${movie.vote_count} arviota)`
                                 : 'Ei arvioita'}
                             </dd>
+
+                            <dt>Pääosissa</dt>
+                            <dd>
+                                {movie.credits?.cast?.length > 0 ? (
+                                    <ul>
+                                        {movie.credits.cast.slice(0, 5).map((actor) => (
+                                            <li key={actor.credit_id}>
+                                                {actor.name}
+                                                {actor.character && ` (${actor.character})`}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>Ei tiedossa</p>
+                                )}
+                            </dd>git 
                         </dl>
                     </div>
                 </article>

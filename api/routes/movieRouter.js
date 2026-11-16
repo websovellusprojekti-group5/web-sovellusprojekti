@@ -22,6 +22,7 @@ router.get('/movie/:id', async (req, res, next) => {
 
     url.searchParams.set('api_key', process.env.TMDB_API_KEY)
     url.searchParams.set('language', 'fi-FI')
+    url.searchParams.set('append_to_response', 'credits')
 
     const response = await fetch(url)
 
