@@ -55,25 +55,58 @@ export default function Navbar() {
                   <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
                   <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
                 </div>
+                <li className="nav-item">
+                  <form className="d-flex" role="search" onSubmit={handleSearch}>
+                    <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
+                    <button className="btn btn-outline-success" type="submit">Hae</button>
+                  </form>
+                </li>
               </li>
               {!loading && (
                 user ? (
                   <>
-                    <li className="nav-item">
+                    <li className="nav-item user-info">
                       <span className="nav-link">
                         {user.username}
                       </span>
                     </li>
-
-                    <li className="nav-item">
-                      <button type="button" onClick={handleLogout}>
-                        Kirjaudu ulos
+                    <li className="nav-item profile-link">
+                      <button
+                        className="nav-link"
+                        type="button"
+                        data-bs-toggle="menu"
+                        aria-expanded="false"
+                        aria-label="Käyttäjävalikko"
+                        id="profileMenu"
+                      >
+                        {<svg xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none" stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLineJoin="round"
+                          className="lucide lucide-user preview-icon">
+                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" /></svg>}
                       </button>
+                      <div className="menu" aria-labelledby="profileMenu">
+                        <Link className="menu-item" to="/profile">
+                          Näytä profiili</Link>
+                        <button
+                          className="menu-item"
+                          type="button"
+                          onClick={handleLogout}
+                        >
+                          Kirjaudu ulos
+                        </button>
+                      </div>
                     </li>
                   </>
                 ) : (
                   <>
-                    <li className="nav-item">
+                    <li className="nav-item log-in">
                       <Link className="nav-link" to="/login" draggable={false}>
                         Kirjaudu
                       </Link>
@@ -87,27 +120,6 @@ export default function Navbar() {
                   </>
                 )
               )}
-
-              <li className="nav-item">
-                <form className="d-flex" role="search" onSubmit={handleSearch}>
-                  <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
-                  <button className="btn btn-outline-success" type="submit">Hae</button>
-                </form>
-              </li>
-              <li className="nav-item profile-link">
-                <Link className="nav-link" to="/profile" aria-label="Profiili" draggable={false}>
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-user preview-icon">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" /></svg></Link>
-              </li>
             </ul>
           </div>
         </dialog>
