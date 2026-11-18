@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
+import Profile from './pages/Profile'
 
 function App() {
 
@@ -46,6 +47,11 @@ function App() {
             exact
             element={<Login />}
           />
+          <Route
+            path="/profile"
+            exact
+            element={<Profile/>}
+            />
         </Routes>
       </main>
     </>
