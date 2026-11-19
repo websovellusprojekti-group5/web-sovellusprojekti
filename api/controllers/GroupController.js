@@ -1,4 +1,4 @@
-import { createGroup, getPublicGroups, getOneGroup, updateGroup } from '../models/Group.js'
+import { createGroup, getPublicGroups, getOneGroup, updateGroup, deleteGroup } from '../models/Group.js'
 
 export const postGroup = async (req, res, next) => {
     try {
@@ -155,6 +155,35 @@ export const patchGroup = async (req, res, next) => {
         }
 
         return res.status(200).json({ group })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const removeGroup = async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const groupId = Number(id)
+
+        if (
+            !/^[1-9]\d*$/.test(id) ||
+            !Number.isSafeInteger(groupId) ||
+            groupId > 2147483647
+        ) {
+            return res.status(400).json({
+                message: 'Invalid group ID'
+            })
+        }
+
+        const group = await deleteGroup(groupId, req.user.id)
+
+        if (!group) {
+            return res.status(404).json({
+                message: 'Group not found or you cannot delete it'
+            })
+        }
+
+        return res.status(204).end()
     } catch (error) {
         next(error)
     }

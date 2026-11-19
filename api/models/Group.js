@@ -98,3 +98,20 @@ export const updateGroup = async ({
 
     return result.rows[0]
 }
+
+export const deleteGroup = async (groupId, userId) => {
+    const result = await pool.query(
+        `DELETE FROM groups g
+        WHERE g.id = $1
+        AND EXISTS (
+            SELECT 1
+            FROM group_members gm
+            WHERE gm.group_id = g.id
+                AND gm.user_id = $2
+                AND gm.role = 'owner'
+                AND gm.request_status = 'accepted'
+    )
+    RETURNING g.id`,[groupId, userId]
+    )
+    return result.rows[0]
+}
