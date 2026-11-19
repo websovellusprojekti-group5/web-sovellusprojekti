@@ -36,3 +36,31 @@ export const createGroup = async ({
         client.release()
     }
 }
+
+export const getPublicGroups = async () => {
+    const result = await pool.query(
+        `SELECT id, name, description, is_public, created_at
+        FROM groups WHERE is_public = true
+        ORDER BY created_at DESC, id DESC`
+    )
+
+    return result.rows
+}
+
+export const getOneGroup  = async (groupId, userId) => {
+    const result = await pool.query(
+        `SELECT g.id, g.name, g.description, g.is_public, g.created_at
+        FROM groups g WHERE g.id = $1
+        AND (g.is_public = true
+        OR EXISTS (
+        SELECT 1 from group_members gm
+         WHERE gm.group_id = g.id
+         AND gm.user_id = $2
+         AND gm.request_status = 'accepted'
+         )
+        )`,
+        [groupId, userId]
+    )
+
+    return result.rows[0]
+}
