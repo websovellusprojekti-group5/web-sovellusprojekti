@@ -11,6 +11,8 @@ import Login from './pages/Login'
 import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
 import Profile from './pages/Profile'
+import ProfileLists from './pages/ProfileLists'
+import ProfileReviews from './pages/ProfileReviews'
 
 function App() {
 
@@ -50,8 +52,11 @@ function App() {
           <Route
             path="/profile"
             exact
-            element={<Profile/>}
-            />
+            element={<Profile />}
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/lists" element={<ProfileLists />} />
+          <Route path="/profile/reviews" element={<ProfileReviews />} />
         </Routes>
       </main>
     </>

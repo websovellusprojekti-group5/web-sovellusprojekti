@@ -1,36 +1,18 @@
-import React from 'react'
 import { useAuth } from '../auth/AuthProvider'
+import ProfileHeader from '../components/Profile/ProfileHeader'
+import ProfileNav from '../components/Profile/ProfileNav'
 import './Profile.css'
 
 export default function Profile() {
     const { user, loading } = useAuth()
 
-    if (loading) return null
+    if (loading) return <p>Ladataan profiilia…</p>
     if (!user) return <p>Kirjaudu sisään nähdäksesi profiilisi</p>
-    return (
-        <div className='profile-page'>
-            <header className='profile.header'>
-                <h1>{user.username}</h1>
-            </header>
-                
-            <div className='profile actions'>
-                <button type="button">Listat</button>
-                <button type="button">Arvostelut</button>
-            </div>
 
-            <section>
-                <h2>Viimeisin arvostelu</h2>
-                <article className='profile-review'>
-                    <h3>Batman</h3>
-                    <p className='profile-rating' aria-label='4 tähteä'>
-                        ★★★★☆
-                    </p>
-                    <p>
-                        Upea elokuva! Batman on kova äijä!
-                    </p>
-                    <small>ESimerkkiarvostelu</small>
-                </article>
-            </section>
+    return (
+        <div className="profile-page">
+            <ProfileHeader user={user} />
+            <ProfileNav />
         </div>
     )
 }
