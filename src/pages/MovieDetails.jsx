@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import axios from "axios";
 import './MovieDetails.css'
+import MovieReviews from '../components/Reviews/MovieReviews'
 
 export default function MovieDetails() {
     const { id } = useParams()
@@ -114,18 +115,18 @@ export default function MovieDetails() {
                                         {movie.credits.cast.slice(0, 5).map((actor) => (
                                             <li key={actor.credit_id}>
                                                 {actor.name}
-                                                {actor.character && ` (${actor.character})`}
                                             </li>
                                         ))}
                                     </ul>
                                 ) : (
                                     <p>Ei tiedossa</p>
                                 )}
-                            </dd>git 
+                            </dd>
                         </dl>
                     </div>
                 </article>
             )}
+            {!loading && !error && movie && <MovieReviews key={id} movieId={id} />}
         </section>
     )
             }
