@@ -1,0 +1,27 @@
+.create-group-page {
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.create-group-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-group-page label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.create-group-page .visibility-option {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.create-group-page textarea {
+    resize: vertical;
+}

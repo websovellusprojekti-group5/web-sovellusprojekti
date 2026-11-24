@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import './Navbar.css'
 
 export default function Navbar() {
-  const { user, logout,loading } = useAuth()
+  const { user, logout, loading } = useAuth()
   const navigate = useNavigate()
   const [logoutError, setLogoutError] = useState('')
 
@@ -55,45 +55,51 @@ export default function Navbar() {
                   <Link className="menu-item" to="/movies?sort=popular">Suosituimmat</Link>
                   <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
                 </div>
-                </li>
-                {!loading && (
-                  user ? (
-                    <>
-                      <li className="nav-item">
-                        <span className="nav-link">
-                         {user.username}
-                        </span>
-                      </li>
+              </li>
+              {!loading && (
+                user ? (
+                  <>
+                    <li className="nav-item">
+                      <span className="nav-link">
+                        {user.username}
+                      </span>
+                    </li>
 
-                      <li className="nav-item">
-                        <button type="button" onClick={handleLogout}>
-                          Kirjaudu ulos
-                        </button>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/login" draggable={false}>
-                          Kirjaudu
-                        </Link>
-                      </li>
+                    <li className="nav-item">
+                      <button type="button" onClick={handleLogout}>
+                        Kirjaudu ulos
+                      </button>
+                    </li>
 
-                      <li className="nav-item">
-                        <Link className="nav-link" to="/register" draggable={false}>
-                          Rekisteröidy
-                        </Link>
-                      </li>
-                    </>
-                  )
-                )}
-          
-            <li className="nav-item">
-              <form className="d-flex" role="search" onSubmit={handleSearch}>
-                <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
-                <button className="btn btn-outline-success" type="submit">Hae</button>
-              </form>
-            </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/groups/new">
+                        Luo ryhmä
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login" draggable={false}>
+                        Kirjaudu
+                      </Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/register" draggable={false}>
+                        Rekisteröidy
+                      </Link>
+                    </li>
+                  </>
+                )
+              )}
+
+              <li className="nav-item">
+                <form className="d-flex" role="search" onSubmit={handleSearch}>
+                  <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
+                  <button className="btn btn-outline-success" type="submit">Hae</button>
+                </form>
+              </li>
             </ul>
           </div>
         </dialog>
