@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import axios from "axios";
 import './MovieDetails.css'
+import MovieReviews from '../components/Reviews/MovieReviews'
 
 export default function MovieDetails() {
     const { id } = useParams()
@@ -106,10 +107,26 @@ export default function MovieDetails() {
                                 ? `${movie.vote_average.toFixed(1)} / 10 (${movie.vote_count} arviota)`
                                 : 'Ei arvioita'}
                             </dd>
+
+                            <dt>Pääosissa</dt>
+                            <dd>
+                                {movie.credits?.cast?.length > 0 ? (
+                                    <ul>
+                                        {movie.credits.cast.slice(0, 5).map((actor) => (
+                                            <li key={actor.credit_id}>
+                                                {actor.name}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>Ei tiedossa</p>
+                                )}
+                            </dd>
                         </dl>
                     </div>
                 </article>
             )}
+            {!loading && !error && movie && <MovieReviews key={id} movieId={id} />}
         </section>
     )
             }
