@@ -8,6 +8,7 @@ import Search from './pages/Search'
 import Navbar from './components/Navbar/Navbar'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import Groups from './pages/Groups'
 import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
 import CreateGroup from './pages/CreateGroup'
@@ -50,6 +51,8 @@ function App() {
           <Route path="/groups/new"
            element={<CreateGroup />} 
           />
+          <Route path="/groups" 
+          element={<Groups />} />
         </Routes>
       </main>
     </>
