@@ -9,6 +9,7 @@ import tmdbRouter from './routes/tmdbRouter.js'
 import authRouter from './routes/authRouter.js'
 import reviewRouter from './routes/reviewRouter.js'
 import groupRouter from './routes/groupRouter.js'
+import userRouter from './routes/userRouter.js'
 import cookieParser from 'cookie-parser'
 import { checkOrigin } from './middleware/checkOrigin.js'
 
@@ -27,6 +28,7 @@ app.use('/api/tmdb', tmdbRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/movies', reviewRouter)
 app.use('/api/groups', groupRouter)
+app.use('/api/users',userRouter)
 
 // Health check endpoint for database connectivity
 app.get('/api/health', async (req, res) => {
