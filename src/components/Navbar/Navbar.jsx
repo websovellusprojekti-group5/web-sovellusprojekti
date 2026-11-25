@@ -63,6 +63,12 @@ export default function Navbar() {
                       <span className="nav-link">
                         {user.username}
                       </span>
+                    </li>                
+
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/groups/new">
+                        Luo ryhmä
+                      </Link>
                     </li>
 
                     <li className="nav-item">
@@ -71,11 +77,7 @@ export default function Navbar() {
                       </button>
                     </li>
 
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/groups/new">
-                        Luo ryhmä
-                      </Link>
-                    </li>
+
                   </>
                 ) : (
                   <>

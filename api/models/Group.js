@@ -115,3 +115,19 @@ export const deleteGroup = async (groupId, userId) => {
     )
     return result.rows[0]
 }
+
+export const getOwnedGroups = async (userId) => {
+    const result = await pool.query(
+        `SELECT g.id, g.name, g.description,
+                g.is_public, g.created_at
+         FROM groups g
+         JOIN group_members gm ON gm.group_id = g.id
+         WHERE gm.user_id = $1
+           AND gm.role = 'owner'
+           AND gm.request_status = 'accepted'
+         ORDER BY g.created_at DESC, g.id DESC`,
+        [userId]
+    )
+
+    return result.rows
+}

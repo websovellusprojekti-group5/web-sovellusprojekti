@@ -6,7 +6,8 @@ export async function api(path, options = {}) {
             ...options.headers
         }
     })
-    const data = await response.json()
+    const data = await response.status === 204
+        ? null : await response.json()
     
     if (!response.ok) {
         const error = new Error(data.message || 'Pyyntö epäonnistui')
