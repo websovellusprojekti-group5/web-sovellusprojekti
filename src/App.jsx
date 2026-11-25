@@ -10,6 +10,7 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Moviecard from './components/Moviecard/Moviecard'
 import MovieDetails from './pages/MovieDetails'
+import CreateGroup from './pages/CreateGroup'
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
             path="/login"
             exact
             element={<Login />}
+          />
+          <Route path="/groups/new"
+           element={<CreateGroup />} 
           />
         </Routes>
       </main>

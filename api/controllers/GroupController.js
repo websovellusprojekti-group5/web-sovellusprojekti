@@ -1,4 +1,4 @@
-import { createGroup, getPublicGroups, getOneGroup, updateGroup, deleteGroup } from '../models/Group.js'
+import { createGroup, getPublicGroups, getOneGroup, updateGroup, deleteGroup, getOwnedGroups } from '../models/Group.js'
 
 export const postGroup = async (req, res, next) => {
     try {
@@ -184,6 +184,15 @@ export const removeGroup = async (req, res, next) => {
         }
 
         return res.status(204).end()
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const getMyGroups = async (req, res, next) => {
+    try {
+        const groups = await getOwnedGroups(req.user.id)
+        return res.status(200).json({ groups })
     } catch (error) {
         next(error)
     }
