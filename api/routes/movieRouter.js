@@ -32,8 +32,24 @@ router.get('/movie/:id', async (req, res, next) => {
       })
     }
 
-    const data = await response.json()
-    res.json(data)
+   const data = await response.json()
+
+// Jos suomenkielinen kuvaus puuttuu, haetaan englanniksi.
+if (!data.overview?.trim()) {
+  url.searchParams.set('language', 'en-US')
+
+  try {
+    const englishResponse = await fetch(url)
+
+    if (englishResponse.ok) {
+      const englishData = await englishResponse.json()
+      data.overview = englishData.overview
+    }
+  } catch {
+  }
+}
+
+  res.json(data)
   } catch (error) {
     next(error)
   }
