@@ -12,7 +12,7 @@ export default function Profile() {
     return (
         <div className="profile-page">
             <ProfileHeader user={user} />
-            <ProfileNav />
+            <ProfileNav userId={user.id}/>
         </div>
     )
 }

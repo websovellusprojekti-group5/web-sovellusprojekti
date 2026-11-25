@@ -51,11 +51,11 @@ function App() {
             element={<Login />}
           />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/lists" element={<ProfileLists />} />
-          <Route path="/profile/reviews" element={<ProfileReviews />} />
           <Route path="/groups/new"
            element={<CreateGroup />} 
           />
+          <Route path="/users/:userId/lists" element={<ProfileLists />} />
+          <Route path="/users/:userId/reviews" element={<ProfileReviews />} />
         </Routes>
       </main>
     </>

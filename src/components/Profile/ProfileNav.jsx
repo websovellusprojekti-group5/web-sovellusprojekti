@@ -1,12 +1,15 @@
 import { Link } from 'react-router'
 
-export default function ProfileNav() {
+export default function ProfileNav({userId}) {
     return (
         <nav className="profile-nav" aria-label="Profiilin valinnat">
-            <Link className="profile-reviews-link" to="/profile/lists">
+            <Link className="profile-reviews-link" to={`/users/${userId}/lists`}>
                 Listat
             </Link>
 
+            <Link className="profile-reviews-link" to={`/users/${userId}/reviews`}>
+                Arvostelut
+            </Link>
             <details className="profile-dropdown">
                 <summary>Ryhmät</summary>
 
@@ -14,10 +17,6 @@ export default function ProfileNav() {
                     <p>Et kuulu vielä yhteenkään ryhmään.</p>
                 </div>
             </details>
-
-            <Link className="profile-reviews-link" to="/profile/reviews">
-                Arvostelut
-            </Link>
         </nav>
     )
 }

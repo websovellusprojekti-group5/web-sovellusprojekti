@@ -56,6 +56,12 @@ export default function Navbar() {
                   <Link className="menu-item" to="/movies?sort=top_rated">Parhaiten arvostellut</Link>
                 </div>
               </li>
+              <li className="nav-item">
+                <form className="d-flex" role="search" onSubmit={handleSearch}>
+                  <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
+                  <button className="btn btn-outline-success" type="submit">Hae</button>
+                </form>
+              </li>
               {!loading && (
                 user ? (
                   <>
@@ -119,13 +125,6 @@ export default function Navbar() {
                   </>
                 )
               )}
-
-              <li className="nav-item">
-                <form className="d-flex" role="search" onSubmit={handleSearch}>
-                  <input className="form-control me-2" name="query" type="search" placeholder="Elokuva tai näyttelijä" aria-label="Hae elokuvaa tai näyttelijää" required />
-                  <button className="btn btn-outline-success" type="submit">Hae</button>
-                </form>
-              </li>
             </ul>
           </div>
         </dialog>
