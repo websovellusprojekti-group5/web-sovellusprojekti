@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
 import './App.css'
 import { Routes, Route } from 'react-router'
 import Home from './pages/Home'
@@ -13,6 +11,7 @@ import MovieDetails from './pages/MovieDetails'
 import Profile from './pages/Profile'
 import ProfileLists from './pages/ProfileLists'
 import ProfileReviews from './pages/ProfileReviews'
+import CreateGroup from './pages/CreateGroup'
 
 function App() {
 
@@ -49,14 +48,10 @@ function App() {
             exact
             element={<Login />}
           />
-          <Route
-            path="/profile"
-            exact
-            element={<Profile />}
-          />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/lists" element={<ProfileLists />} />
           <Route path="/profile/reviews" element={<ProfileReviews />} />
+          <Route path="/groups/new" element={<CreateGroup />} />
         </Routes>
       </main>
     </>
