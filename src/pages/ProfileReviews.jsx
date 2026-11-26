@@ -68,6 +68,14 @@ export default function ProfileReviews() {
                 ) : (
                     reviews.map(review => (
                         <article key={review.id}>
+                            {review.poster_path && (
+                                <img
+                                    src={`https://image.tmdb.org/t/p/w185${review.poster_path}`}
+                                    alt={`Elokuvan ${review.title} juliste`}
+                                    width={92}
+                                    loading="lazy"
+                                />
+                            )}
                             <h2>{review.title}</h2>
                             <p>Arvosana: {review.rating} / 5</p>
                             {review.comment && <p>{review.comment}</p>}
