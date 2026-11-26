@@ -10,3 +10,12 @@ body {
   display: flex;
   align-items: center;
 }
+.navbar-nav {
+  width: 100%
+}
+.user-info {
+  margin-left:auto
+}
+.log-in {
+  margin-left:auto
+}
