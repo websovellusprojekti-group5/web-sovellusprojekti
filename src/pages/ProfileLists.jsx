@@ -2,7 +2,6 @@ import { useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import {useAuth} from '../auth/AuthProvider'
 import {api} from '../api'
-import ProfileHeader from '../components/Profile/ProfileHeader'
 import './Profile.css'
 
 export default function ProfileLists() {
@@ -61,8 +60,6 @@ if (!profile) return <p>Profiilia ei löytynyt.</p>
 
     return (
         <div className="profile-page">
-            <ProfileHeader user={profile} />
-
             <section>
                 <h1>Käyttäjän {profile.username} listat</h1>
 
